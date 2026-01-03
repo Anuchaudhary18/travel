@@ -212,7 +212,7 @@ onclick="openTrip('Manali','manali.mp4','manali.jpg','15000','4 Days / 3 Nights'
 <div class="state-title">Kerala</div>
 <div class="row g-4">
 <div class="col-md-4">
-<div class="city-card" onclick="openTrip('Munnar','munnar.mp4','munnar.jpg','16000','4 Days / 3 Nights')">
+<div class="city-card" onclick="openTrip('Munnar','munner.mp4','munnar.jpg','16000','4 Days / 3 Nights')">
 <img src="munnar.jpg">
 <div class="city-name">Munnar</div>
 </div>
@@ -226,7 +226,7 @@ onclick="openTrip('Manali','manali.mp4','manali.jpg','15000','4 Days / 3 Nights'
 </div>
 
 <div class="col-md-4">
-<div class="city-card" onclick="openTrip('Thekkady','thekkady.mp4','thekkady.jpg')">
+<div class="city-card" onclick="openTrip('Thekkady','thekkady.mp4','Thekkady.jpg')">
 <img src="thekkady.jpg">
 <div class="city-name">Thekkady</div>
 </div>
@@ -310,6 +310,10 @@ Continue to Payment
 <div id="paymentBox" style="display:none;" class="tour-card mt-4">
 
 <h4 class="text-warning mb-3">Payment Details</h4>
+<input id="paymentPlace" class="form-control mb-2" readonly placeholder="Selected Place">
+
+<input id="paymentPrice" class="form-control mb-2" readonly placeholder="Total Price">
+
 
 <input class="form-control mb-2" placeholder="Card Holder Name">
 
@@ -383,6 +387,7 @@ function downloadReceipt(){
 alert("Receipt downloaded successfully ✅");
 }
 </script>
+  
 <script>
 function validateBooking(){
 let fname = document.getElementById("fname").value.trim();
@@ -424,16 +429,32 @@ return true;
 }
 </script>
 <script>
-function openTrip(title, video, image, price, days){
-document.getElementById("tripTitle").innerText = title;
-document.getElementById("tripVideo").src = video;
-document.getElementById("tripImage").src = image;
-document.getElementById("tripPrice").innerText = "Price: ₹" + price;
-document.getElementById("tripDays").innerText = "Duration: " + days;
+let selectedPlace = "";
+let selectedPrice = "";
 
-new bootstrap.Modal(document.getElementById("tripModal")).show();
+function openTrip(title, video, image, price, days){
+  document.getElementById("tripTitle").innerText = title;
+  document.getElementById("tripVideo").src = video;
+  document.getElementById("tripImage").src = image;
+  document.getElementById("tripPrice").innerText = "Price: ₹" + price;
+  document.getElementById("tripDays").innerText = "Duration: " + days;
+
+  // SAVE FOR PAYMENT
+  selectedPlace = title;
+  selectedPrice = price;
+
+  new bootstrap.Modal(document.getElementById("tripModal")).show();
 }
 </script>
+<script>
+function goToPayment(){
+  document.getElementById("paymentPlace").value = selectedPlace;
+  document.getElementById("paymentPrice").value = "₹" + selectedPrice;
+
+  document.getElementById("payment").scrollIntoView({behavior:'smooth'});
+}
+</script>
+
 
 
 
